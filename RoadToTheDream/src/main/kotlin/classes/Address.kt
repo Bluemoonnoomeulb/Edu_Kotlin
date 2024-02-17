@@ -26,7 +26,7 @@ import java.util.Objects
     val houseNumber: Int)
  */
 
-class Address(var city: String, val street: String, val houseNumber: Int) {
+class Address(val city: String, val street: String, val houseNumber: Int) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other)
@@ -48,7 +48,7 @@ class Address(var city: String, val street: String, val houseNumber: Int) {
         return "${javaClass.simpleName}(city=$city, street=$street, houseNumber=$houseNumber)"
     }
 
-    fun copy(): Address {
+    fun copy(city: String = this.city, street: String = this.street, houseNumber: Int = this.houseNumber): Address {
         return Address(city, street, houseNumber)
     }
 

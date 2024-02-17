@@ -1,0 +1,4 @@
+# Ignore idea files
+RoadToTheDream/.idea/
+RoadToTheDream/out/
+.DS_Store

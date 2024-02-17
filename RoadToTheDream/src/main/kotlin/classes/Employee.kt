@@ -10,4 +10,10 @@ class Employee(val name: String, val position: String, val employmentYear: Int) 
     fun work() {
         println("Работаю...")
     }
+
+    override fun toString(): String {
+        return "Имя: ${this.name}\n" +
+                "Должность: ${this.position}\n" +
+                "Год трудоустройства: ${this.employmentYear}"
+    }
 }
