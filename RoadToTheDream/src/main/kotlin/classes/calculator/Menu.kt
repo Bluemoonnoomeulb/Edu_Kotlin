@@ -1,6 +1,5 @@
 package classes.calculator
 
-import java.text.ParseException
 import kotlin.system.exitProcess
 
 const val MENU = "Меню:\n" +
@@ -19,19 +18,16 @@ fun main() {
     while (true) {
         println(MENU)
         print(ACTION)
-        try {
+        runCatching {
             when (readln()) {
                 "1" -> {
                     print("Введите выражение для вычисления: ")
-                    manipulation(readln())
+                    Manipulator.calculateExpression(readln())
                 }
-
                 "2" -> println(FAQ)
                 "3" -> exitProcess(0)
                 else -> println("Повторите попытку")
             }
-        } catch (e: ParseException) {
-            println(e.message)
-        }
+        }.onFailure { println("Произошла ошибка: $it") }
     }
 }
