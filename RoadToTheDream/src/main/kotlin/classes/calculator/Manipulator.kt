@@ -1,14 +1,13 @@
 package classes.calculator
 
-import java.text.ParseException
-
 object Manipulator {
     fun calculateExpression(expression: String) {
         val lexemeBuffer = getLexemes(expression)
 
         val lexemeItem = lexemeBuffer.next
-        val result = if (lexemeItem is Lexeme.EOF)
+        val result = if (lexemeItem is Lexeme.EOF) {
             0.0
+        }
         else {
             lexemeBuffer.back()
             Calculator.getAmount(lexemeBuffer)
@@ -28,15 +27,12 @@ object Manipulator {
                 lexemes.add(Lexeme.Number(numberSymbol.toDouble()))
                 numberSymbol = ""
             }
-            when (symbol) {
-                '+' -> lexemes.add(Lexeme.OperationPlus)
-                '-' -> lexemes.add(Lexeme.OperationMinus)
-                '*' -> lexemes.add(Lexeme.OperationMul)
-                '/' -> lexemes.add(Lexeme.OperationDiv)
-                else -> if (checkNumber(symbol)) {
-                    numberSymbol += symbol
-                } else
-                    throw ParseException("Неизвестный символ", index)
+
+            val result = Parser.parseLexeme(symbol, index)
+            if (result is Lexeme.Number){
+                numberSymbol += result.value.toString()
+            } else {
+                lexemes.add(result)
             }
         }
         if (numberSymbol.isNotEmpty())

@@ -1,7 +1,5 @@
 package classes.calculator
 
-import kotlin.system.exitProcess
-
 const val MENU = "Меню:\n" +
         "1. Открыть калькулятор\n" +
         "2. Открыть FAQ\n" +
@@ -15,7 +13,8 @@ const val FAQ = "Вопрос: Какая цель приложения?\n" +
         "Ответ: Наше приложение использует новую версии ИИ - ленивую ;) Этот искусственный интеллект считается только самые простые операции."
 
 fun main() {
-    while (true) {
+    var isActive = true
+    while (isActive) {
         println(MENU)
         print(ACTION)
         runCatching {
@@ -25,7 +24,7 @@ fun main() {
                     Manipulator.calculateExpression(readln())
                 }
                 "2" -> println(FAQ)
-                "3" -> exitProcess(0)
+                "3" -> isActive = false
                 else -> println("Повторите попытку")
             }
         }.onFailure { println("Произошла ошибка: $it") }
